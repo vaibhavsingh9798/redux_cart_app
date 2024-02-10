@@ -23,10 +23,37 @@ const cartSlice = createSlice({
 
             state.totalItem += 1
            
+      },
+      increaseItem(state,action){
+
+        let existItem = state.items.find((item) => item.title === action.payload.title)
+        if(existItem){
+            existItem.quantity += 1
+            state.totalPrice += existItem.price
+        }
+    state.totalItem += 1
+         
+      },
+      reduceItem(state,action){
+         console.log('redu call..')
+        let existItem = state.items.find((item) => item.title === action.payload.title)
+        if(existItem){
+            existItem.quantity -= 1
+            state.totalItem -= 1
+            state.totalPrice -= existItem.price
+            if(existItem.quantity == 0){
+            let updatedItems = state.items.filter((item) => item.title !== action.payload.title) 
+            state.items = updatedItems; 
+              
+
+            }
+        }
+    
       }
+
     }
 })
 
-export const { setCartItem,setShowCart} = cartSlice.actions
+export const { setCartItem,setShowCart,increaseItem,reduceItem} = cartSlice.actions
 
 export default cartSlice.reducer;

@@ -1,9 +1,10 @@
-import { useSelector } from "react-redux"
-
+import { useDispatch, useSelector } from "react-redux"
+import {increaseItem,reduceItem} from "../../feature/cart/cartSlice"
 const Cart = () =>{
+    let dispatch = useDispatch()
     let products = useSelector((state) => state.cart.items) || []
     let totalPrice= useSelector((state) => state.cart.totalPrice) 
-
+  
     console.log('pro',products)
     return(
         <div className="flex justify-center m-1">
@@ -21,8 +22,8 @@ const Cart = () =>{
                                     <div className="flex justify-around flex-col">
                                     <div className="font-medium">&#8377;{item.quantity * item.price}<span className="ml-2">(&#8377;{item.price}/item)</span></div>
                                     <div className="flex  justify-end mr-4">
-                                        <button>+</button>
-                                        <button>-</button>
+                                        <button className="border-2 rounded-sm px-2 border-slate-300" onClick={() => dispatch(increaseItem(item))}>+</button>
+                                        <button className="border-2 rounded-sm px-2 border-slate-300 ml-1" onClick={() => dispatch(reduceItem(item))}>-</button>
                                     </div>
                                     </div>
                             </div>
