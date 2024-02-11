@@ -1,10 +1,20 @@
-import { useDispatch } from "react-redux"
+import { useDispatch , useSelector} from "react-redux";
 import {products} from "../../utils/dummyData"
 import {setCartItem} from "../../feature/cart/cartSlice"
+import { useEffect } from "react"
+import {sendCartData} from "../../feature/cart/cartAPI"
 const Product = () =>{
   
   let dispatch = useDispatch()
-  
+  let cartItems = useSelector((state) => state.cart.items) || []
+
+ useEffect(()=>{
+        if(products.length){
+          let item = products[products.length-1]
+           dispatch(sendCartData(item))
+        }
+ },[products])
+
     const print = () => {
         return(
             products.map((product) =>{

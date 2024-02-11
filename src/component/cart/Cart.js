@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
 import {increaseItem,reduceItem} from "../../feature/cart/cartSlice"
+
 const Cart = () =>{
     let dispatch = useDispatch()
     let products = useSelector((state) => state.cart.items) || []
     let totalPrice= useSelector((state) => state.cart.totalPrice) 
   
     console.log('pro',products)
+
     return(
         <div className="flex justify-center m-1">
           <div  className=" w-96 h-auto bg-slate-800 text-slate-400 m-1">

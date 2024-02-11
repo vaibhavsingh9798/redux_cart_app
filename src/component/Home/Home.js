@@ -1,11 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "../cart/Cart";
 import {setShowCart} from "../../feature/cart/cartSlice"
-
+import {fetchCartData} from "../../feature/cart/cartAPI"
+import { useEffect } from "react";
 const Home =  () =>{
     let dispatch = useDispatch()
     let showCart = useSelector((state) => state.cart.showCart)
     let totalItem = useSelector((state) => state.cart.totalItem)
+
+
+    useEffect(()=>{
+            if(totalItem == 0){
+                 dispatch(fetchCartData());
+            }
+        },[])
+ 
     return(
         <div>
         <div className="flex justify-around bg-slate-800 text-slate-300 p-7">
